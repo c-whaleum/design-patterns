@@ -1,6 +1,6 @@
 import pytest
 
-from design_patterns.skeleton import fib, main
+from design_patterns.patterns_runner import fib, main
 
 __author__ = "c-whaleum"
 __copyright__ = "c-whaleum"

@@ -1,30 +1,9 @@
-"""
-This is a skeleton file that can serve as a starting point for a Python
-console script. To run this script uncomment the following lines in the
-``[options.entry_points]`` section in ``setup.cfg``::
-
-    console_scripts =
-         fibonacci = design_patterns.skeleton:run
-
-Then run ``pip install .`` (or ``pip install -e .`` for editable mode)
-which will install the command ``fibonacci`` inside your current environment.
-
-Besides console scripts, the header (i.e. until ``_logger``...) of this file can
-also be used as template for Python modules.
-
-Note:
-    This file can be renamed depending on your needs or safely removed if not needed.
-
-References:
-    - https://setuptools.pypa.io/en/latest/userguide/entry_point.html
-    - https://pip.pypa.io/en/stable/reference/pip_install
-"""
-
 import argparse
 import logging
 import sys
 
 from design_patterns import __version__
+from design_patterns.observer.event_app import run_oberver
 
 __author__ = "c-whaleum"
 __copyright__ = "c-whaleum"
@@ -32,28 +11,22 @@ __license__ = "MIT"
 
 _logger = logging.getLogger(__name__)
 
+implemented_examples = {
+    'observer': run_oberver
+}
+
 
 # ---- Python API ----
-# The functions defined in this section can be imported by users in their
-# Python scripts/interactive interpreter, e.g. via
-# `from design_patterns.skeleton import fib`,
-# when using this Python module as a library.
 
 
-def fib(n):
-    """Fibonacci example function
-
+def run_design_patterns(patterns):
+    """Run design pattern examples
     Args:
-      n (int): integer
-
-    Returns:
-      int: n-th Fibonacci number
+      patterns (list): list of patterns examples to run
     """
-    assert n > 0
-    a, b = 1, 1
-    for _i in range(n - 1):
-        a, b = b, a + b
-    return a
+    for pattern in patterns:
+        implemented_examples[pattern]()
+    
 
 
 # ---- CLI ----
@@ -95,6 +68,7 @@ def parse_args(args):
         action="store_const",
         const=logging.DEBUG,
     )
+
     return parser.parse_args(args)
 
 
